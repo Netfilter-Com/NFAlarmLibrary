@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+#import "NFAlarm.h"
 
 @interface NFAlarmLibTests : XCTestCase
 
@@ -26,15 +27,73 @@
 }
 
 - (void)testExample {
-    // This is an example of a functional test case.
-    XCTAssert(YES, @"Pass");
+	NFAlarm * alarm = [[NFAlarm alloc] init];
+	alarm.hour = 15;
+	alarm.minute = 10;
+    XCTAssert([alarm.time isEqualToString:@"3:10 PM"], @"Time US Format");
 }
 
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
+- (void) testMonday
+{
+	NFAlarm * alarm = [[NFAlarm alloc] init];
+	alarm.weekdays = 1;
+	XCTAssert([alarm.weekdaysText isEqualToString:@"Mon"]);
 }
+
+- (void) testTuesday
+{
+	NFAlarm * alarm = [[NFAlarm alloc] init];
+	alarm.weekdays = 2;
+	XCTAssert([alarm.weekdaysText isEqualToString:@"Tue"]);
+}
+
+- (void) testTuesdayMonday
+{
+	NFAlarm * alarm = [[NFAlarm alloc] init];
+	alarm.weekdays = 3;
+	XCTAssert([alarm.weekdaysText isEqualToString:@"Mon, Tue"]);
+}
+
+- (void) testNFDay1
+{
+	NFAlarm * alarm = [[NFAlarm alloc] init];
+	alarm.weekdays = (1 << 1) | (1 << 3);
+	XCTAssert([alarm.weekdaysText isEqualToString:@"Tue, Thu"]);
+}
+
+- (void) testNFDay2
+{
+	NFAlarm * alarm = [[NFAlarm alloc] init];
+	alarm.weekdays = (1 << 1) | (1 << 4);
+	XCTAssert([alarm.weekdaysText isEqualToString:@"Tue, Fri"]);
+}
+
+- (void) testAllDays
+{
+	NFAlarm * alarm = [[NFAlarm alloc] init];
+	for (int i = 0; i < 7; i++) {
+		alarm.weekdays |= (1 << i);
+	}
+	XCTAssert([alarm.weekdaysText isEqualToString:@"Everyday"]);
+}
+
+- (void) testWorkdays
+{
+	NFAlarm * alarm = [[NFAlarm alloc] init];
+	for (int i = 0; i < 5; i++) {
+		alarm.weekdays |= (1 << i);
+	}
+	XCTAssert([alarm.weekdaysText isEqualToString:@"Weekdays"]);
+}
+
+- (void) testWeekends
+{
+	NFAlarm * alarm = [[NFAlarm alloc] init];
+	for (int i = 5; i < 7; i++) {
+		alarm.weekdays |= (1 << i);
+	}
+	XCTAssert([alarm.weekdaysText isEqualToString:@"Weekend"]);
+}
+
 
 @end

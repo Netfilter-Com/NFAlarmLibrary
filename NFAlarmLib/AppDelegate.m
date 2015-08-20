@@ -7,8 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import "NFAlarmViewController.h"
 
 @interface AppDelegate ()
+@property (strong, nonatomic) NFAlarmViewController *viewController;
+@property (strong, nonatomic) UINavigationController *nav;
 
 @end
 
@@ -17,6 +20,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	// Override point for customization after application launch.
+	
+	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+	// Override point for customization after application launch.
+	self.viewController = [[NFAlarmViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	self.nav = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+
+	self.window.rootViewController = self.nav;
+	[self.window makeKeyAndVisible];
 	return YES;
 }
 
