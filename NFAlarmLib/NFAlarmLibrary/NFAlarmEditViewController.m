@@ -70,6 +70,10 @@
 			if (indexPath.row == 0) {
 				UITextField * tf = [[UITextField alloc] initWithFrame:cell.frame];
 				tf.text = self.alarm.alarmName;
+				tf.font = [UIFont fontWithName:@"HelveticaNeue" size:24.0f];
+				tf.textAlignment = NSTextAlignmentCenter;
+				tf.placeholder = NSLocalizedString(@"Reminder Name", nil);
+				tf.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 				[cell addSubview:tf];
 			} else {
 				cell.textLabel.text = NSLocalizedString(@"Repeat", nil);
