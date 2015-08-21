@@ -2,3 +2,4 @@ osx_image: xcode6.4
 language: objective-c
 xcode_project: NFAlarmLib.xcodeproj # path to your xcodeproj folder
 xcode_scheme: NFAlarmLibTests
+xcode_sdk: iphonesimulator8.4
