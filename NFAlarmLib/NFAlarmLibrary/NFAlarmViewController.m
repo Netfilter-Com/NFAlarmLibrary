@@ -9,12 +9,12 @@
 #import "NFAlarmViewController.h"
 #import "NFAlarm.h"
 #import "NFAlarmEditViewController.h"
+#import "NFAlarmViewCell.h"
 
 #define NFALARMLIBSTR @"nf_alarm_library_string"
 #define NFALARMLIBCELLID @"f_alarm_library_cell_id"
 
 @interface NFAlarmViewController ()
-@property (copy, nonatomic) NSMutableArray * localAlarms;
 @end
 
 @implementation NFAlarmViewController
@@ -33,7 +33,7 @@
 {
 	self = [super init];
 	if (self) {
-		self.localAlarms = nil;
+		self.alarms = nil;
 	}
 	return self;
 }
@@ -42,7 +42,7 @@
 {
 	self = [super initWithStyle:style];
 	if (self) {
-		self.localAlarms = nil;
+		self.alarms = nil;
 	}
 	return self;
 }
@@ -56,15 +56,16 @@
 
 }
 
-- (NSArray *) alarms
+- (NSMutableArray *) alarms
 {
-	if (self.localAlarms) {
-		return self.localAlarms;
+	if (_alarms) {
+		return _alarms;
 	}
 	NSMutableArray *m = [NSMutableArray array];
 	for (NSDictionary * dic in [[NSUserDefaults standardUserDefaults] objectForKey:NFALARMLIBSTR]) {
 		[m addObject:[NFAlarm initWithDict:dic]];
 	}
+	_alarms = m;
 	return m;
 }
 
@@ -78,14 +79,21 @@
 	[[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-#pragma mark - Datasource
+#pragma mark - Table Datasource
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NFALARMLIBCELLID];
+	static NSString *CellIdentifier = NFALARMLIBCELLID;
+	NFAlarmViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	
+	if (cell == nil) {
+		cell = [[NFAlarmViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+	}
 	NFAlarm * alarm = [self alarms][indexPath.row];
-	cell.textLabel.text = alarm.time;
-	cell.detailTextLabel.text = alarm.weekdaysText;
+	cell.hour.text    = alarm.time;
+	cell.repeat.text  = alarm.weekdaysText;
+	cell.name.text    = alarm.alarmName;
+	[cell.alarmOn setOn:alarm.enabled];
 	return cell;
 }
 
@@ -99,10 +107,18 @@
 	return [[self alarms] count];
 }
 
-#pragma mark - Delegate
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	return 74.0;
+}
+
+#pragma mark - Table Delegate
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	
+	NFAlarmEditViewController * nfaevc = [[NFAlarmEditViewController alloc] init];
+	nfaevc.alarm = [self alarms][indexPath.row];
+	nfaevc.delegate = self;
+	[self.navigationController pushViewController:nfaevc animated:YES];
 }
 
 #pragma mark - Actions
@@ -110,7 +126,21 @@
 {
 	NFAlarmEditViewController * nfaevc = [[NFAlarmEditViewController alloc] init];
 	nfaevc.alarm = [NFAlarm new];
+	nfaevc.delegate = self;
 	[self.navigationController pushViewController:nfaevc animated:YES];
+}
+
+#pragma mark - NFAlarmEditViewControllerDelegate
+- (void) alarmFinishEditing:(NFAlarm *)alarm
+{
+	NSUInteger idx = [self.alarms indexOfObject:alarm];
+	if (idx != NSNotFound) {
+		self.alarms[idx] = alarm;
+	} else {
+		[self.alarms addObject:alarm];
+	}
+	[self save];
+	[self.tableView reloadData];
 }
 
 @end

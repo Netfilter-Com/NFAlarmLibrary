@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NFAlarmEditViewController.h"
 
-@interface NFAlarmViewController : UITableViewController
+@interface NFAlarmViewController : UITableViewController <NFAlarmEditViewControllerDelegate>
 + (instancetype)sharedInstance;
 - (void) save;
-@property (copy, nonatomic) NSArray *alarms;
+@property (copy, nonatomic) NSMutableArray *alarms;
 @end

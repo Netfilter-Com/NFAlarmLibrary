@@ -24,6 +24,10 @@
 }
 
 - (void)viewDidLoad {
+	UIBarButtonItem* saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
+																			   target:self
+																			   action:@selector(save)];
+	self.navigationItem.rightBarButtonItem = saveButton;
 	[super viewDidLoad];
 }
 
@@ -62,6 +66,7 @@
 		{
 			self.hourPicker = [[UIDatePicker alloc] init];
 			[self.hourPicker setDatePickerMode:UIDatePickerModeTime];
+			self.hourPicker.date = [[NSCalendar currentCalendar] dateBySettingHour:self.alarm.hour minute:self.alarm.minute second:0 ofDate:[NSDate date] options:NSCalendarUnitHour | NSCalendarUnitMinute];
 			[cell addSubview:self.hourPicker];
 		}
 		break;
@@ -74,6 +79,7 @@
 				tf.textAlignment = NSTextAlignmentCenter;
 				tf.placeholder = NSLocalizedString(@"Reminder Name", nil);
 				tf.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+				self.name = tf;
 				[cell addSubview:tf];
 			} else {
 				cell.textLabel.text = NSLocalizedString(@"Repeat", nil);
@@ -115,5 +121,25 @@
 	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
 }
 
+#pragma mark - TODO Save
+- (void) save
+{
+	if ([self.delegate respondsToSelector:@selector(alarmFinishEditing:)]) {
+		self.alarm.alarmName = self.name.text;
+		NSCalendar * cal = [NSCalendar currentCalendar];
+		NSDateComponents * comp = [cal components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:self.hourPicker.date];
+		self.alarm.hour = comp.hour;
+		self.alarm.minute = comp.minute;
+		self.alarm.enabled = YES;
+		[self.delegate alarmFinishEditing:self.alarm];
+	}
+	[self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - TODO Cancel
+- (void) cancel
+{
+	[self.navigationController popViewControllerAnimated:YES];
+}
 
 @end
