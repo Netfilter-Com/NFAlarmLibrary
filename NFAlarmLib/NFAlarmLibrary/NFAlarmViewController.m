@@ -19,6 +19,11 @@
 
 @implementation NFAlarmViewController
 
+/**
+ *  Singleton usage of NFAlarmViewContoller
+ *
+ *  @return shared Instance of the Class
+ */
 + (instancetype)sharedInstance {
 	static NFAlarmViewController *_sharedInstance = nil;
 	static dispatch_once_t onceToken;
@@ -49,7 +54,9 @@
 
 - (void) viewDidLoad
 {
-	UIBarButtonItem* addButton = [[UIBarButtonItem alloc] initWithTitle:@"+" style:UIBarButtonItemStylePlain target:self
+	UIBarButtonItem* addButton = [[UIBarButtonItem alloc] initWithTitle:@"+"
+																  style:UIBarButtonItemStylePlain
+																 target:self
 																  action:@selector(addAlarm:)];
 	self.navigationItem.leftBarButtonItem = addButton;
 	[super viewDidLoad];
@@ -69,6 +76,9 @@
 	return m;
 }
 
+/**
+ *  Save the alarms to NSUserDefaults
+ */
 - (void) save
 {
 	NSMutableArray *m = [NSMutableArray array];

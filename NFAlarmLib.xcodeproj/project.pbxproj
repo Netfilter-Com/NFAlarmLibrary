@@ -10,6 +10,7 @@
 		9F1CFCB51B86031100551234 /* NFAlarmEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1CFCB41B86031100551234 /* NFAlarmEditViewController.m */; };
 		9F1CFCBE1B864FBA00551234 /* NFWeekDaySelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1CFCBD1B864FBA00551234 /* NFWeekDaySelectViewController.m */; };
 		9F1CFCC11B8B440F00551234 /* NFAlarmViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1CFCC01B8B440F00551234 /* NFAlarmViewCell.m */; };
+		9F1CFCC41B8B805E00551234 /* NFAlarmLib.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1CFCC31B8B805E00551234 /* NFAlarmLib.m */; };
 		9F958F9F1B82472300F61EBB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F958F9E1B82472300F61EBB /* main.m */; };
 		9F958FA21B82472300F61EBB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F958FA11B82472300F61EBB /* AppDelegate.m */; };
 		9F958FAA1B82472300F61EBB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F958FA91B82472300F61EBB /* Images.xcassets */; };
@@ -36,6 +37,8 @@
 		9F1CFCBD1B864FBA00551234 /* NFWeekDaySelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NFWeekDaySelectViewController.m; path = NFAlarmLibrary/NFWeekDaySelectViewController.m; sourceTree = "<group>"; };
 		9F1CFCBF1B8B440F00551234 /* NFAlarmViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NFAlarmViewCell.h; path = NFAlarmLibrary/NFAlarmViewCell.h; sourceTree = "<group>"; };
 		9F1CFCC01B8B440F00551234 /* NFAlarmViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NFAlarmViewCell.m; path = NFAlarmLibrary/NFAlarmViewCell.m; sourceTree = "<group>"; };
+		9F1CFCC21B8B805E00551234 /* NFAlarmLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NFAlarmLib.h; path = NFAlarmLibrary/NFAlarmLib.h; sourceTree = "<group>"; };
+		9F1CFCC31B8B805E00551234 /* NFAlarmLib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NFAlarmLib.m; path = NFAlarmLibrary/NFAlarmLib.m; sourceTree = "<group>"; };
 		9F958F991B82472300F61EBB /* NFAlarmLib.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NFAlarmLib.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F958F9D1B82472300F61EBB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F958F9E1B82472300F61EBB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -128,16 +131,18 @@
 		9F958FC21B82473200F61EBB /* NFAlarmLibrary */ = {
 			isa = PBXGroup;
 			children = (
-				9F958FC31B82477900F61EBB /* NFAlarmViewController.h */,
-				9F958FC41B82477900F61EBB /* NFAlarmViewController.m */,
 				9F958FC61B83401100F61EBB /* NFAlarm.h */,
 				9F958FC71B83401100F61EBB /* NFAlarm.m */,
+				9F958FC31B82477900F61EBB /* NFAlarmViewController.h */,
+				9F958FC41B82477900F61EBB /* NFAlarmViewController.m */,
 				9F1CFCB31B86031100551234 /* NFAlarmEditViewController.h */,
 				9F1CFCB41B86031100551234 /* NFAlarmEditViewController.m */,
 				9F1CFCBC1B864FBA00551234 /* NFWeekDaySelectViewController.h */,
 				9F1CFCBD1B864FBA00551234 /* NFWeekDaySelectViewController.m */,
 				9F1CFCBF1B8B440F00551234 /* NFAlarmViewCell.h */,
 				9F1CFCC01B8B440F00551234 /* NFAlarmViewCell.m */,
+				9F1CFCC21B8B805E00551234 /* NFAlarmLib.h */,
+				9F1CFCC31B8B805E00551234 /* NFAlarmLib.m */,
 			);
 			name = NFAlarmLibrary;
 			sourceTree = "<group>";
@@ -248,6 +253,7 @@
 				9F958F9F1B82472300F61EBB /* main.m in Sources */,
 				9F958FC81B83401100F61EBB /* NFAlarm.m in Sources */,
 				9F1CFCB51B86031100551234 /* NFAlarmEditViewController.m in Sources */,
+				9F1CFCC41B8B805E00551234 /* NFAlarmLib.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
